@@ -5,6 +5,7 @@
 
 
 from spack import *
+import sys
 
 
 class Xsdk(BundlePackage):
@@ -133,10 +134,11 @@ class Xsdk(BundlePackage):
     depends_on('pumi@2.2.1', when='@0.5.0')
     depends_on('pumi@2.2.0', when='@0.4.0')
 
-    depends_on('tasmanian@develop+xsdkflags+blas~openmp', when='@develop')
-    depends_on('tasmanian@develop+xsdkflags+blas+cuda+magma~openmp', when='@develop +cuda')
-    depends_on('tasmanian@7.0+xsdkflags+blas~openmp', when='@0.5.0')
-    depends_on('tasmanian@7.0+xsdkflags+blas+cuda+magma~openmp', when='@0.5.0 +cuda')
+    tasmanian_openmp = '~openmp' if sys.platform == 'darwin' else '+openmp'
+    depends_on('tasmanian@develop+xsdkflags+blas' + tasmanian_openmp, when='@develop')
+    depends_on('tasmanian@develop+xsdkflags+blas+cuda+magma' + tasmanian_openmp, when='@develop +cuda')
+    depends_on('tasmanian@7.0+xsdkflags+mpi+blas' + tasmanian_openmp, when='@0.5.0')
+    depends_on('tasmanian@7.0+xsdkflags+mpi+blas+cuda+magma' + tasmanian_openmp, when='@0.5.0 +cuda')
     depends_on('tasmanian@6.0+xsdkflags+blas~openmp', when='@0.4.0')
     depends_on('tasmanian@6.0+xsdkflags+blas+cuda+magma~openmp', when='@0.4.0 +cuda')
 
