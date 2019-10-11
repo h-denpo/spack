@@ -32,7 +32,8 @@ class Xsdk(BundlePackage):
     variant('phist', default=True, description='Enable phist package build')
     variant('ginkgo', default=True, description='Enable ginkgo package build')
     variant('libensemble', default=True, description='Enable py-libensemble package build')
-    variant('precice', default=True, description='Enable precice package build')
+    variant('precice', default=(sys.platform != 'darwin'),
+            description='Enable precice package build')
     variant('butterflypack', default=True, description='Enable butterflypack package build')
 
     depends_on('hypre@develop~internal-superlu+superlu-dist+shared', when='@develop')
