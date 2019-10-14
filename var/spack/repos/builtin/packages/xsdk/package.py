@@ -28,6 +28,10 @@ class Xsdk(BundlePackage):
     variant('omega-h', default=True, description='Enable omega-h package build')
     variant('dealii', default=True, description='Enable dealii package build')
     variant('phist', default=True, description='Enable phist package build')
+    variant('ginkgo', default=True, description='Enable ginkgo package build')
+    variant('libensemble', default=True, description='Enable py-libensemble package build')
+    variant('precice', default=True, description='Enable precice package build')
+    variant('butterflypack', default=True, description='Enable butterflypack package build')
 
     depends_on('hypre@develop~internal-superlu+superlu-dist+shared', when='@develop')
     depends_on('hypre@2.18.2~internal-superlu+superlu-dist+shared', when='@0.5.0')
@@ -138,6 +142,20 @@ class Xsdk(BundlePackage):
     depends_on('phist@develop kernel_lib=tpetra ~fortran ~scamac ~openmp ~host', when='@develop +phist')
     depends_on('phist@1.8.0 kernel_lib=tpetra ~fortran ~scamac ~openmp ~host', when='@0.5.0 +phist')
     depends_on('phist@1.7.5 kernel_lib=tpetra ~fortran ~scamac ~openmp ~host', when='@0.4.0 +phist')
+
+    depends_on('ginkgo@develop ~openmp', when='@develop +ginkgo')
+    depends_on('ginkgo@develop ~openmp+cuda', when='@develop +ginkgo +cuda')
+    depends_on('ginkgo@1.1.0 ~openmp', when='@0.5.0 +ginkgo')
+    depends_on('ginkgo@1.1.0 ~openmp+cuda', when='@0.5.0 +cuda +ginkgo')
+
+    depends_on('py-libensemble@develop+petsc4py', when='@develop +libensemble')
+    depends_on('py-libensemble@0.5.2+petsc4py', when='@0.5.0 +libensemble')
+
+    depends_on('precice@develop +petsc', when='@develop +precice')
+    depends_on('precice@1.6.1 +petsc', when='@0.5.0 +precice')
+
+    depends_on('butterflypack@master', when='@develop +butterflypack')
+    depends_on('butterflypack@master', when='@0.5.0 +butterflypack')
 
     # xSDKTrilinos depends on the version of Trilinos built with
     # +tpetra which is turned off for faster xSDK
