@@ -28,6 +28,7 @@ class Xsdk(BundlePackage):
     variant('cuda', default=False, description='Enable CUDA dependent packages')
     variant('trilinos', default=True, description='Enable trilinos package build')
     variant('omega-h', default=True, description='Enable omega-h package build')
+    variant('strumpack', default=True, description='Enable strumpack package build')
     variant('dealii', default=True, description='Enable dealii package build')
     variant('phist', default=True, description='Enable phist package build')
     variant('ginkgo', default=True, description='Enable ginkgo package build')
@@ -127,9 +128,9 @@ class Xsdk(BundlePackage):
     depends_on('omega-h@9.29.0', when='@0.5.0 +omega-h')
     depends_on('omega-h@9.19.1', when='@0.4.0 +omega-h')
 
-    depends_on('strumpack@master', when='@develop')
-    depends_on('strumpack@master', when='@0.5.0')
-    depends_on('strumpack@3.1.1', when='@0.4.0')
+    depends_on('strumpack@master', when='@develop +strumpack')
+    depends_on('strumpack@master', when='@0.5.0 +strumpack')
+    depends_on('strumpack@3.1.1', when='@0.4.0 +strumpack')
 
     depends_on('pumi@develop', when='@develop')
     depends_on('pumi@2.2.1', when='@0.5.0')
